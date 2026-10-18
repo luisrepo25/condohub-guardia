@@ -23,6 +23,8 @@ React 18 · Vite · TypeScript · vite-plugin-pwa (Workbox) · onnxruntime-web (
 - Un pase usado offline se marca usado localmente para no aceptarlo dos veces en el mismo dispositivo.
 - Indicador visible de estado: en línea / sin conexión / N operaciones pendientes.
 
+- **Propuesta de Luis (18/10/2026, para revisión de Erick):** `ml/web/demo_webcam/` del repo `condohub-ia` es una demo funcional de la pantalla de placas (webcam → detector ONNX → CNN de TensorFlow en JavaScript → estado PERMITIDO / SUGERIDA / SIN COINCIDENCIA, con confirmación del guardia). La regla propuesta: lectura exacta de una placa registrada con confianza ≥ 0,85 en 2 cuadros coincidentes → permite; a 1 carácter de una registrada → la sugiere y decide el guardia; sin parecido → decide el guardia (A4). La CNN solo reconoce de forma fiable la placa de la demo: no sustituye a la decisión del guardia. Detalle y métricas: `ml/README.md` (6e y 6f) de `condohub-ia`.
+
 ## Estructura
 
 ```
