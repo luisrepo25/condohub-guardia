@@ -1,0 +1,37 @@
+/* Tarjetas del tablero: resultado, historial, alertas, botones y avisos. */
+.ch-panel, .ch-tarjeta {
+  display: grid; gap: 0.75rem; padding: 1rem 1.25rem;
+  border: 1px solid var(--_borde); border-radius: 0.75rem; background: var(--_bg);
+}
+.ch-tarjeta h3 { margin: 0; font-size: 1rem; }
+.ch-boton {
+  padding: 0.85rem 1.1rem; font: inherit; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--_acento); border-radius: 0.6rem; background: var(--_acento); color: #fff;
+}
+.ch-boton--suave { background: transparent; color: var(--_acento); }
+.ch-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+.ch-conmutador { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+.ch-conmutador button {
+  padding: 0.5rem; font: inherit; cursor: pointer; color: var(--_texto);
+  border: 1px solid var(--_borde); border-radius: 0.5rem; background: transparent;
+}
+.ch-conmutador button[aria-pressed='true'] { border-color: var(--_acento); color: var(--_acento); font-weight: 600; }
+.ch-campo { display: grid; gap: 0.35rem; font-size: 0.9rem; color: var(--_suave); }
+.ch-campo textarea { font: inherit; padding: 0.5rem; border: 1px solid var(--_borde); border-radius: 0.5rem; text-transform: uppercase; }
+.ch-vacio { margin: 0; color: var(--_suave); font-size: 0.9rem; }
+
+.ch-decision { display: grid; gap: 0.25rem; padding: 1rem 1.25rem; border-radius: 0.75rem; border: 2px solid var(--_borde); }
+.ch-decision strong { font-size: 1.35rem; letter-spacing: 0.02em; }
+.ch-decision p { margin: 0.25rem 0 0; font-size: 0.9rem; }
+.ch-placa { font-size: 2rem; font-weight: 700; letter-spacing: 0.1em; }
+.ch-decision--ok { border-color: #15803d; background: rgb(21 128 61 / 0.1); }
+.ch-decision--aviso { border-color: #b45309; background: rgb(180 83 9 / 0.1); }
+.ch-decision--mal { border-color: #b91c1c; background: rgb(185 28 28 / 0.1); }
+
+.ch-historial { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; max-height: 14rem; overflow-y: auto; }
+.ch-evento { display: grid; grid-template-columns: auto 1fr; gap: 0 0.75rem; padding: 0.4rem 0.6rem; border-left: 4px solid var(--_borde); font-size: 0.85rem; }
+.ch-evento time { grid-row: span 2; color: var(--_suave); font-variant-numeric: tabular-nums; }
+.ch-evento span { color: var(--_suave); }
+.ch-evento--ok { border-left-color: #15803d; }
+.ch-evento--aviso { border-left-color: #b45309; }
+.ch-evento--mal { border-left-color: #b91c1c; }

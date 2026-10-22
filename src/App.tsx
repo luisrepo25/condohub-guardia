@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import estilos from './estilos.css?inline';
 import { cargarPerfil, type Perfil } from './perfil';
+import { Porteria } from './app/Porteria';
 
 export interface Contexto {
   getToken: () => string;
@@ -53,6 +54,7 @@ export function App({ getToken, user }: Contexto) {
           )}
         </div>
       )}
+      <Porteria getToken={getToken} nombre={user.nombre} />
     </section>
   );
 }

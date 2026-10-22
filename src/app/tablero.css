@@ -1,0 +1,28 @@
+/* Estructura del tablero de portería: barra superior, dos columnas (cámara | resultado) y pestañas. */
+.ch-tablero { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.ch-barra {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: 0.75rem 1rem; border: 1px solid var(--_borde); border-radius: 0.75rem; background: var(--_bg);
+}
+.ch-barra-der { margin-left: auto; color: var(--_suave); font-variant-numeric: tabular-nums; }
+.ch-conexion { font-size: 0.9rem; font-weight: 600; }
+.ch-conexion--ok { color: #15803d; }
+.ch-conexion--sin { color: #b91c1c; }
+.ch-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+.ch-columna { display: grid; gap: 1rem; min-width: 0; }
+@media (max-width: 760px) { .ch-columnas { grid-template-columns: 1fr; } }
+
+.ch-pestanas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.ch-pestanas button {
+  padding: 0.8rem; font: inherit; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--_borde); border-radius: 0.6rem; background: var(--_bg); color: var(--_texto);
+}
+.ch-pestanas button[aria-selected='true'] { background: var(--_acento); border-color: var(--_acento); color: #fff; }
+
+.ch-visor { position: relative; display: grid; gap: 0.75rem; }
+.ch-visor video { width: 100%; aspect-ratio: 4 / 3; background: #111; border-radius: 0.75rem; object-fit: cover; }
+.ch-en-vivo {
+  position: absolute; top: 0.6rem; left: 0.6rem; padding: 0.2rem 0.6rem; border-radius: 999px;
+  background: rgb(0 0 0 / 0.6); color: #e5e7eb; font-size: 0.8rem;
+}
+.ch-en-vivo--activa { color: #fca5a5; }
