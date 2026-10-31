@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { decidir, ESTADO_INICIAL } from '../domain/freno';
+import { decidir, ESTADO_INICIAL, pedirReintento } from '../domain/freno';
 import type { Identificacion } from '../domain/identificacion';
 import type { Puertos } from './puertos';
 
@@ -26,8 +26,11 @@ export function useRostro({ identificador, camara }: Puertos, activa: boolean) {
     try {
       const imagen = await camara.capturar();
       if (!imagen) throw new Error('La cámara aún no entrega imagen');
-      setResultado(await identificador.identificar(imagen));
+      const identificacion = await identificador.identificar(imagen);
+      if (identificacion.resultado === 'SIN_ROSTRO') freno.current = pedirReintento(freno.current);
+      setResultado(identificacion);
     } catch (e) {
+      freno.current = pedirReintento(freno.current);
       setError(e instanceof Error ? e.message : 'No se pudo identificar el rostro');
     } finally {
       ocupado.current = false;

@@ -46,6 +46,8 @@ Esqueleto: módulo ES con `mount`/`unmount` que muestra la sesión y consulta `m
 
 **Quién es (31/10/2026, A5):** `ResultadoRostro` y el historial de la jornada muestran «Nombre · unidad» (`quienEs` en `features/rostros/domain`) en lugar del UUID; si el perfil no trae nombre se mantiene «Residente xxxxxxxx…». `tests/quien-es.test.tsx` (42 pruebas en total).
 
+**Reintento tras un cuadro sin rostro (31/10/2026, I3):** en modo automático, un `SIN_ROSTRO` o un error ya no da la escena por atendida: `pedirReintento` (en `freno.ts`) hace que se reintente cada 1 s sin exigir cambio ni quietud (un `SIN_ROSTRO` no se guarda); entre identificaciones normales la espera mínima bajó de 5 s a 2 s. Antes, tras un cuadro sin rostro había que apagar y encender la cámara. `tests/freno-reintento.test.ts` (47 pruebas en total).
+
 ## Código funcional protegido (obligatorio)
 
 Código en `main` con tests en verde **no se reescribe, refactoriza, renombra ni reformatea** si la tarea no lo pide explícitamente. Lo nuevo se agrega extendiendo (clases, métodos o archivos nuevos). Si es inevitable tocar código funcional, **detente antes de editar**, explica qué archivo/líneas y por qué, y espera confirmación; luego haz el mínimo diff. Nunca edites tests existentes para que pase código nuevo. Corre los tests antes y después: todo lo que pasaba debe seguir pasando. En el resumen, lista cada archivo existente que modificaste.
