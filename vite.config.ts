@@ -15,8 +15,8 @@ export default defineConfig({
     }),
   ],
   define: { 'process.env.NODE_ENV': '"production"' },
-  // Sin index.html: el contenedor federado es la única salida; la entrada es el propio remoto.
-  build: { target: 'esnext', minify: false, cssCodeSplit: false, rollupOptions: { input: 'src/remote.tsx' } },
+  // Sin index.html: el contenedor federado es la única salida. La entrada NO puede ser el módulo expuesto (ver el archivo).
+  build: { target: 'esnext', minify: false, cssCodeSplit: false, rollupOptions: { input: 'src/federacion-entrada.ts' } },
   preview: { port: 5175, strictPort: true, cors: true },
   test: { environment: 'jsdom', include: ['tests/**/*.test.{ts,tsx}'] },
 });
