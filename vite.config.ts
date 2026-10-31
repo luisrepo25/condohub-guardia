@@ -1,16 +1,22 @@
 /// <reference types="vitest" />
+import federation from '@originjs/vite-plugin-federation';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// El shell carga este remoto con import(url): el build es un módulo ES que exporta mount y unmount (src/remote.tsx).
+// Module Federation: este remoto expone './remote' (mount y unmount, src/remote.tsx) con su propio React: cada remoto monta su raíz aislada (sin estado compartido con el shell).
 // Contrato con el shell: ver frontends/shell/src/remotes/contrato.ts.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    federation({
+      name: 'guardia',
+      filename: 'remoteEntry.js',
+      exposes: { './remote': './src/remote.tsx' },
+    }),
+  ],
   define: { 'process.env.NODE_ENV': '"production"' },
-  build: {
-    target: 'esnext',
-    lib: { entry: 'src/remote.tsx', formats: ['es'], fileName: () => 'assets/remoteEntry.js' },
-  },
+  // Sin index.html: el contenedor federado es la única salida; la entrada es el propio remoto.
+  build: { target: 'esnext', minify: false, cssCodeSplit: false, rollupOptions: { input: 'src/remote.tsx' } },
   preview: { port: 5175, strictPort: true, cors: true },
   test: { environment: 'jsdom', include: ['tests/**/*.test.{ts,tsx}'] },
 });
