@@ -7,6 +7,9 @@ export interface Identificacion {
   resultado: Zona;
   residenteId: string | null;
   confianza: number;
+  /** Del perfil del candidato; faltan en perfiles registrados antes de que la IA los guardara. */
+  nombre?: string | null;
+  unidadCodigo?: string | null;
 }
 
 export interface Presentacion {
@@ -26,6 +29,12 @@ export function presentar(i: Identificacion): Presentacion {
     case 'SIN_ROSTRO':
       return { nivel: 'aviso', titulo: 'SIN ROSTRO', mensaje: 'No se detectó un rostro. Acércalo a la cámara, de frente y con buena luz.' };
   }
+}
+
+/** Quién es el candidato, listo para mostrar («Ana Pérez · B-101»). Solo en RECONOCIDO y DUDOSO y si se conoce el nombre. */
+export function quienEs(i: Identificacion): string | null {
+  if (!candidato(i) || !i.nombre) return null;
+  return i.unidadCodigo ? `${i.nombre} · ${i.unidadCodigo}` : i.nombre;
 }
 
 /** Solo hay candidato en las zonas RECONOCIDO y DUDOSO. */

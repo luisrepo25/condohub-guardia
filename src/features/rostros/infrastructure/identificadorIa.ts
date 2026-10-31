@@ -16,8 +16,9 @@ export function crearIdentificadorIa(getToken: () => string): IdentificadorRostr
       });
       if (r.status === 503) throw new Error('El reconocimiento facial no está disponible');
       if (!r.ok) throw new Error(`El Servicio IA respondió ${r.status}`);
-      const c = (await r.json()) as { resultado: Identificacion['resultado']; residenteId?: string | null; confianza?: number | null };
-      return { resultado: c.resultado, residenteId: c.residenteId ?? null, confianza: c.confianza ?? 0 };
+      const c = (await r.json()) as { resultado: Identificacion['resultado']; residenteId?: string | null; confianza?: number | null; nombre?: string | null; unidadCodigo?: string | null };
+      const datos = { ...(c.nombre ? { nombre: c.nombre } : {}), ...(c.unidadCodigo ? { unidadCodigo: c.unidadCodigo } : {}) };
+      return { resultado: c.resultado, residenteId: c.residenteId ?? null, confianza: c.confianza ?? 0, ...datos };
     },
   };
 }

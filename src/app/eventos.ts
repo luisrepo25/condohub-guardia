@@ -2,7 +2,7 @@
 // Vive en app/ porque es composición: una feature no importa de otra.
 import type { Evento } from '../features/actividad';
 import type { Decision } from '../features/placas';
-import { candidato, presentar, type Identificacion } from '../features/rostros';
+import { candidato, presentar, quienEs, type Identificacion } from '../features/rostros';
 
 export type NuevoEvento = Omit<Evento, 'id' | 'hora'>;
 
@@ -10,9 +10,10 @@ export type NuevoEvento = Omit<Evento, 'id' | 'hora'>;
 export function eventoDeRostro(i: Identificacion): NuevoEvento | null {
   if (i.resultado === 'SIN_ROSTRO') return null;
   const id = candidato(i);
+  const quien = quienEs(i);
   const similitud = `similitud ${i.confianza.toFixed(2)}`;
   const p = presentar(i);
-  return { tipo: 'ROSTRO', titulo: p.titulo, detalle: id ? `Residente ${id.slice(0, 8)}… · ${similitud}` : similitud, nivel: p.nivel };
+  return { tipo: 'ROSTRO', titulo: p.titulo, detalle: quien ? `${quien} · ${similitud}` : id ? `Residente ${id.slice(0, 8)}… · ${similitud}` : similitud, nivel: p.nivel };
 }
 
 export function eventoDePlaca(d: Decision): NuevoEvento {
