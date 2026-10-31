@@ -14,12 +14,12 @@ export function aAlerta(v: VisitanteIa): Alerta {
   return { id: v.clusterId, tipo: 'VISITANTE_RECURRENTE', clusterId: v.clusterId, apariciones: v.apariciones, diasDistintos: v.diasDistintos, creadaEn: v.alertadoEn ?? v.ultimaVez };
 }
 
-// TODO(regla): la fuente prevista es `GET /acceso/api/alertas` (acceso.yaml, capa anticorrupción de Acceso); mientras Acceso no lo
-// implemente se lee del Servicio IA (`GET /ia/rostros/visitantes-recurrentes`). Al cambiar de fuente solo cambia este adaptador.
+// I4: la fuente es Acceso (`GET /acceso/api/alertas`, capa anticorrupción: toma los clústeres de la IA y los traduce a su `Alerta`).
+// `aAlerta` queda para quien lea el modelo crudo de la IA, como el móvil.
 export async function listarAlertas(getToken: () => string): Promise<Alerta[]> {
-  const r = await fetch(`${GATEWAY}/ia/rostros/visitantes-recurrentes`, { headers: { authorization: `Bearer ${getToken()}` } });
-  if (!r.ok) throw new Error(`El Servicio IA respondió ${r.status}`);
+  const r = await fetch(`${GATEWAY}/acceso/api/alertas`, { headers: { authorization: `Bearer ${getToken()}` } });
+  if (!r.ok) throw new Error(`Acceso respondió ${r.status}`);
   const cuerpo: unknown = await r.json();
-  if (!Array.isArray(cuerpo)) throw new Error('Respuesta inesperada del Servicio IA');
-  return (cuerpo as VisitanteIa[]).map(aAlerta);
+  if (!Array.isArray(cuerpo)) throw new Error('Respuesta inesperada de Acceso');
+  return cuerpo as Alerta[];
 }
