@@ -27,31 +27,27 @@ export function App({ getToken, user }: Contexto) {
         <p className="ch-sesion">
           Sesión de {user.nombre} ({user.email})
         </p>
+        {perfil && <p className="ch-etiqueta">Roles: {perfil.roles.join(', ')}</p>}
       </header>
       {error && (
         <p className="ch-error" role="alert">
           {error}
         </p>
       )}
-      {perfil && (
-        <div className="ch-tarjeta">
-          <p className="ch-etiqueta">Roles: {perfil.roles.join(', ')}</p>
-          {perfil.unidades.length > 0 && (
-            <>
-              <h2>Mis unidades</h2>
-              <ul className="ch-unidades">
-                {perfil.unidades.map((u) => (
-                  <li key={u.unidadId}>
-                    <strong>{u.codigo}</strong>
-                    <span>Bloque {u.bloque}</span>
-                    <span className={u.titular ? 'ch-insignia ch-insignia--titular' : 'ch-insignia'}>
-                      {u.titular ? 'Titular' : 'Residente'}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+      {perfil && perfil.unidades.length > 0 && (
+        <div className="ch-unidades-guardia">
+          <h2>Mis unidades</h2>
+          <ul className="ch-unidades">
+            {perfil.unidades.map((u) => (
+              <li key={u.unidadId}>
+                <strong>{u.codigo}</strong>
+                <span>Bloque {u.bloque}</span>
+                <span className={u.titular ? 'ch-insignia ch-insignia--titular' : 'ch-insignia'}>
+                  {u.titular ? 'Titular' : 'Residente'}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       <Porteria getToken={getToken} nombre={user.nombre} />

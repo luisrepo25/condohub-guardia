@@ -1,28 +1,30 @@
 /* Estructura del tablero de portería: barra superior, dos columnas (cámara | resultado) y pestañas. */
-.ch-tablero { display: grid; gap: 1rem; margin-top: 1.5rem; }
-.ch-barra {
-  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  padding: 0.75rem 1rem; border: 1px solid var(--_borde); border-radius: 0.75rem; background: var(--_bg);
+.ch-tablero { display: grid; gap: 14px; }
+/* El shell ya usa .ch-barra en su barra superior: se acota al tablero y se anula lo que hereda de allí. */
+.ch-tablero .ch-barra {
+  position: static; z-index: auto; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px;
+  padding: 10px 18px; border: 1px solid var(--_fuerte); border-radius: 14px; background: var(--_bg);
 }
-.ch-barra-der { margin-left: auto; color: var(--_suave); font-variant-numeric: tabular-nums; }
-.ch-conexion { font-size: 0.9rem; font-weight: 600; }
-.ch-conexion--ok { color: #15803d; }
-.ch-conexion--sin { color: #b91c1c; }
-.ch-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
-.ch-columna { display: grid; gap: 1rem; min-width: 0; }
-@media (max-width: 760px) { .ch-columnas { grid-template-columns: 1fr; } }
+.ch-tablero .ch-barra strong { font-size: 1.1rem; }
+.ch-barra-der { margin-left: auto; color: var(--_suave); }
+.ch-tablero .ch-conexion { padding: 3px 11px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; }
+.ch-tablero .ch-conexion--ok { background: var(--_ok-f); color: var(--_ok); }
+.ch-tablero .ch-conexion--sin { background: var(--_pe-f); color: var(--_pe); }
+.ch-columnas { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.ch-columna { display: grid; gap: 14px; min-width: 0; }
+@media (max-width: 900px) { .ch-columnas { grid-template-columns: minmax(0, 1fr); } }
 
-.ch-pestanas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-.ch-pestanas button {
-  padding: 0.8rem; font: inherit; font-weight: 600; cursor: pointer;
-  border: 1px solid var(--_borde); border-radius: 0.6rem; background: var(--_bg); color: var(--_texto);
+.ch-tablero .ch-pestanas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ch-tablero .ch-pestanas button {
+  min-height: 52px; padding: 0 12px; font: inherit; font-weight: 700; cursor: pointer;
+  border: 1px solid var(--_control); border-radius: 12px; background: var(--_bg); color: var(--_texto);
+  transition: background-color 0.16s ease-out, border-color 0.16s ease-out;
 }
-.ch-pestanas button[aria-selected='true'] { background: var(--_acento); border-color: var(--_acento); color: #fff; }
+.ch-tablero .ch-pestanas button:hover { background: var(--_sup2); border-color: var(--_fuerte); color: var(--_texto); }
+.ch-tablero .ch-pestanas button[aria-selected='true'] { background: var(--_acento); border-color: var(--_acento); color: var(--_acento-t); }
 
-.ch-visor { position: relative; display: grid; gap: 0.75rem; }
-.ch-visor video { width: 100%; aspect-ratio: 4 / 3; background: #111; border-radius: 0.75rem; object-fit: cover; }
-.ch-en-vivo {
-  position: absolute; top: 0.6rem; left: 0.6rem; padding: 0.2rem 0.6rem; border-radius: 999px;
-  background: rgb(0 0 0 / 0.6); color: #e5e7eb; font-size: 0.8rem;
-}
+.ch-visor { position: relative; display: grid; gap: 10px; }
+/* Alto limitado: la imagen, el botón y el resultado se ven sin desplazarse en la tablet de la caseta. */
+.ch-visor video { display: block; width: 100%; aspect-ratio: 4 / 3; max-height: max(260px, calc(100vh - 425px)); background: #05090f; border: 1px solid var(--_fuerte); border-radius: 14px; object-fit: cover; }
+.ch-en-vivo { position: absolute; top: 12px; left: 12px; padding: 4px 11px; border-radius: 8px; background: rgb(0 0 0 / 0.72); color: #e5e7eb; font-size: 0.85rem; font-weight: 600; }
 .ch-en-vivo--activa { color: #fca5a5; }

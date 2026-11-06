@@ -29,7 +29,7 @@ export function PanelRostros({ getToken, camara, activa, alIdentificar }: Props)
         <button type="button" aria-pressed={modo === 'automatico'} onClick={() => setModo('automatico')}>Automático</button>
       </div>
       <p className="ch-etiqueta">
-        {modo === 'manual' ? 'El guardia pulsa Identificar cuando alguien está frente a la cámara.' : 'Identifica solo cuando llega alguien nuevo frente a la cámara.'} Asiste al guardia: no abre ni bloquea (A5).
+        {modo === 'manual' ? 'El guardia pulsa Identificar cuando alguien está frente a la cámara.' : 'Identifica solo cuando llega alguien nuevo frente a la cámara.'} Asiste al guardia: no abre ni bloquea.
       </p>
       {modo === 'manual' && (
         <button type="button" className="ch-boton" onClick={identificar} disabled={!activa || trabajando}>

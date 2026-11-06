@@ -28,7 +28,7 @@ export function PanelPlacas({ getToken, camara, activa, alDecidir }: Props) {
 
   return (
     <div className="ch-panel">
-      <p className="ch-etiqueta">Lee la placa mientras la cámara está activa. El sistema solo sugiere: decide el guardia (A4, A5).</p>
+      <p className="ch-etiqueta">Lee la placa mientras la cámara está activa. El sistema solo sugiere: decide el guardia.</p>
       <label className="ch-campo">
         Placas registradas (separadas por espacios o comas)
         <textarea value={texto} onChange={(e) => cambiarLista(e.target.value)} rows={2} placeholder="1234ABC 5678XYZ" />
